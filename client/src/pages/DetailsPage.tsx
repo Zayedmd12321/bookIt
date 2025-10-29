@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getExperienceById } from '../services/api';
 import type { IExperience, ISlot } from '../types';
 import { FaArrowLeft } from 'react-icons/fa';
+import DetailsPageSkeleton from '../components/skeletons/DetailsPageSkeleton';
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -38,7 +39,9 @@ const DetailsPage = () => {
       } catch {
         setError('Failed to fetch experience details.');
       } finally {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
       }
     };
     fetchDetails();
@@ -65,13 +68,13 @@ const DetailsPage = () => {
     }
   };
 
-  if (isLoading) return <div className="p-12 text-center text-gray-600">Loading...</div>;
+  if (isLoading) return <DetailsPageSkeleton />;
+
   if (error) return <div className="p-12 text-center text-red-500">{error}</div>;
   if (!experience) return <div className="p-12 text-center text-gray-600">Experience not found.</div>;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-10">
-      {/* Back Link */}
       <Link
         to="/"
         className="mb-6 inline-flex items-center gap-2 text-sm text-[#000000] transition hover:text-[#282828]"

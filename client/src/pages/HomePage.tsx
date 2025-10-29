@@ -3,12 +3,13 @@ import { getExperiences } from '../services/api';
 import type { IExperience } from '../types';
 import ExperienceCard from '../components/ExperienceCard';
 import { useSearch } from '../context/SearchContext';
+import ExperienceCardSkeleton from '../components/skeletons/ExperienceCardSkeleton';
 
 const HomePage = () => {
   const [experiences, setExperiences] = useState<IExperience[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { searchQuery } = useSearch(); // 👈 shared search text
+  const { searchQuery } = useSearch();
 
   useEffect(() => {
     const fetchExperiences = async () => {
@@ -21,7 +22,7 @@ const HomePage = () => {
         if (err instanceof Error) setError(err.message);
         else setError('An unknown error occurred while fetching experiences.');
       } finally {
-        setIsLoading(false);
+        setTimeout(() => setIsLoading(false), 500); 
       }
     };
 
@@ -34,15 +35,6 @@ const HomePage = () => {
       exp.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // --- Skeleton Loader ---
-  const SkeletonCard = () => (
-    <div className="animate-pulse rounded-lg bg-white p-4 shadow">
-      <div className="mb-3 h-40 w-full rounded-lg bg-gray-200" />
-      <div className="h-4 w-3/4 rounded bg-gray-200 mb-2" />
-      <div className="h-3 w-1/2 rounded bg-gray-200" />
-    </div>
-  );
-
   // --- Loading State ---
   if (isLoading) {
     return (
@@ -50,7 +42,7 @@ const HomePage = () => {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <SkeletonCard key={i} />
+              <ExperienceCardSkeleton key={i} />
             ))}
           </div>
         </div>
