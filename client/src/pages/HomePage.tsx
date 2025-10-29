@@ -21,6 +21,8 @@ const HomePage = () => {
       } catch (err) {
         if (err instanceof Error) setError(err.message);
         else setError('An unknown error occurred while fetching experiences.');
+      } finally {
+        setIsLoading(false); 
       }
     };
 
