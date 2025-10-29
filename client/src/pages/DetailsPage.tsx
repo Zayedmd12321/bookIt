@@ -38,10 +38,6 @@ const DetailsPage = () => {
         }
       } catch {
         setError('Failed to fetch experience details.');
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
       }
     };
     fetchDetails();
