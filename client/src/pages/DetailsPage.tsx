@@ -131,12 +131,12 @@ const DetailsPage = () => {
                 <span>{slot.time}</span>
 
                 {slot.isSoldOut ? (
-                  <span className="ml-1 text-[10px] font-medium text-[#6A6A6A]">
+                  <span className="ml-1 text-xs font-medium text-[#6A6A6A]">
                     Sold Out
                   </span>
                 ) : (
                   <span className="ml-2 text-xs font-medium text-[#FF4C0A]">
-                    ({slot.slotsLeft} left)
+                    {slot.slotsLeft} left
                   </span>
                 )}
               </button>
@@ -169,14 +169,14 @@ const DetailsPage = () => {
                   <button
                     onClick={() => handleQuantityChange(-1)}
                     disabled={quantity <= 1}
-                    className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 text-lg font-bold text-gray-600 transition hover:bg-gray-100 disabled:opacity-50"
+                    className="flex h-7 w-7 items-center justify-center border border-gray-300 text-[19px] font-bold text-gray-600 transition hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
                   >
                     −
                   </button>
                   <span className="w-5 text-center font-semibold text-gray-800">{quantity}</span>
                   <button
                     onClick={() => handleQuantityChange(1)}
-                    className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 text-lg font-bold text-gray-600 transition hover:bg-gray-100"
+                    className="flex h-7 w-7 items-center justify-center border border-gray-300 text-[19px] font-bold text-gray-600 transition hover:bg-gray-100 cursor-pointer"
                   >
                     +
                   </button>
